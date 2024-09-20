@@ -87,9 +87,10 @@ function App() {
     let localuser = localStorage.getItem("user");
     if (!localuser) {
       setIsLogged(false);
+    } else {
+      localuser = JSON.parse(localuser).dummyUserObject;
+      setDummyUserObject(localuser);
     }
-    localuser = JSON.parse(localuser).dummyUserObject;
-    setDummyUserObject(localuser);
   }, []);
 
   return (

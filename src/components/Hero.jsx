@@ -161,6 +161,7 @@ const Hero = () => {
                   backgroundImage={item.imgUrl}
                   name={item.name}
                   movieType={item.movieType}
+                  key={item.id}
                 />
               ))}
             {weekFilter != 0 &&
