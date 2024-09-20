@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@layer components {
+  .footer-bg {
+    background: radial-gradient(#ffffff09 4%, #fff 10%);
+    background-size: 200% 1000%;
+    background-position: right;
+  }
+  .animate-menu {
+    animation: grow 0.5s linear forwards;
+  }
+  @keyframes grow {
+    from {
+      transform: translateY(-100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-out {
+    animation: fadeOut 0.5s linear forwards;
+  }
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+      display: none;
+    }
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.5s linear forwards;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      display: none;
+    }
+    to {
+      opacity: 1;
+      display: block;
+    }
+  }
+  .animate-close-menu {
+    animation: leave 0.5s linear forwards;
+  }
+  @keyframes leave {
+    from {
+      transform: translateY(0);
+    }
+    to {
+      transform: translateY(-100%);
+    }
+  }
+  .perspective {
+    perspective: 500px;
+  }
+  @media (min-width: 768px) {
+    .dimenssion {
+      transform-style: preserve-3d;
+      transform: perspective(300rem);
+    }
+  }
+  @media (max-width: 768px) {
+    .dimenssion {
+      transform-style: preserve-3d;
+      transform: perspective(600px);
+    }
+  }
+  .rotateR {
+    transform: translateX(-120%) rotateY(-40deg);
+  }
+  .rotateL {
+    transform: translateX(120%) rotateY(40deg);
+  }
+  .textShadow {
+    text-shadow: 8px 8px 0 black;
+  }
+  .bgLine {
+    background: linear-gradient(to right, #60a5fa 60%, #00000000 65%);
+  }
+  .animate-inward {
+    animation: inward 0.2s linear forwards;
+  }
+  @keyframes inward {
+    from {
+      scale: 0.2;
+    }
+    to {
+      scale: 1;
+    }
+  }
+}
