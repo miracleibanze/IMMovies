@@ -98,6 +98,7 @@ function App() {
       setIsLogged(true);
       alert("Account created successfully !");
     } else if (
+      formData.email === dummyUserObject.email &&
       formData.username === dummyUserObject.username &&
       formData.password === dummyUserObject.password
     ) {

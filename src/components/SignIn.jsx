@@ -45,9 +45,7 @@ const SignIn = () => {
         <input
           type="text"
           placeholder="Your email"
-          className={`py-2 px-4 outline-none lg:w-[25rem] md:w-[20rem] w-[15rem] ${
-            signUp ? "flex" : "hidden"
-          }`}
+          className={`py-2 px-4 outline-none lg:w-[25rem] md:w-[20rem] w-[15rem]`}
           name="email"
           onChange={handleAddUser}
           required
@@ -55,7 +53,9 @@ const SignIn = () => {
         <input
           type="text"
           placeholder={`${signUp ? "choose username" : "You username"} `}
-          className="py-2 px-4 outline-none lg:w-[25rem] md:w-[20rem] w-[15rem]"
+          className={`py-2 px-4 outline-none lg:w-[25rem] md:w-[20rem] w-[15rem] ${
+            signUp ? "flex" : "hidden"
+          }`}
           name="username"
           onChange={handleAddUser}
           required
