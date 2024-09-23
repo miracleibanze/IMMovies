@@ -167,7 +167,7 @@ const Watch = () => {
                       key={itemb.id}
                     >
                       <div
-                        className="w-full aspect-video bg-cover bg-center group"
+                        className="w-full aspect-video bg-cover bg-slate-400 rounded-md bg-center group"
                         style={{ backgroundImage: `url(${itemb.imgUrl})` }}
                       >
                         <div className="w-full flex justify-center aspect-video items-center">

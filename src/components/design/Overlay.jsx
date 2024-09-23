@@ -17,7 +17,10 @@ const Overlay = ({ name, movieType }) => {
           </div>
           <span className="flex items-center text-3xl mt-2">
             <img
-              onClick={() => navigate(`/watch/${name}`)}
+              onClick={() => {
+                navigate(`/watch/${name}`);
+                window.scrollTo(top);
+              }}
               src={play}
               alt="play"
               className="w-8 h-8 border-slate-300 border-4 hover:scale-[1.2] rounded-full shadow-2xl shadow-slate-200"
