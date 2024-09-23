@@ -10,7 +10,7 @@ const Button = ({ className, onClick, children, link, hover, scale }) => {
       : "bg-color-1 text-slate-100 "
   } ${scale && "hover:scale-[1.1] duration-200"}`;
 
-  const spanClasses = `relative z-10 flex gap-2 items-center`;
+  const spanClasses = `relative flex gap-2 items-center`;
 
   const renderButton = () => (
     <Link to={link} onClick={goUp}>

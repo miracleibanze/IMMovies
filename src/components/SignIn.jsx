@@ -1,14 +1,13 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { AppContext } from "../App";
 import { UTurnLeft } from "../assets";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
-  const { handleAddUser, handleLogin, invalid, setInvalid } =
+  const { handleAddUser, handleLogin, invalid, setInvalid, signUp, setSignUp } =
     useContext(AppContext);
 
   const navigate = useNavigate();
-  const [signUp, setSignUp] = useState(false);
 
   return (
     <div
@@ -20,7 +19,7 @@ const SignIn = () => {
       <div className="absolute top-4 left-4" onClick={() => navigate("/")}>
         <img src={UTurnLeft} alt="back" className="h-6" />
       </div>
-      <div className="relative flex flex-col gap-2">
+      <div className="relative flex flex-col gap-2 loginForm">
         <div className="relative h2 font-bold text-slate-50 text-center mb-4">
           {signUp ? "Sign Up" : "Log In"}
         </div>
@@ -32,6 +31,16 @@ const SignIn = () => {
           }`}
           name="names"
           onChange={handleAddUser}
+          required
+        />
+        <input
+          type="text"
+          name="imgUrl"
+          placeholder="Enter a valid image Link"
+          className={`py-2 px-4 outline-none lg:w-[25rem] md:w-[20rem] w-[15rem] ${
+            signUp ? "flex" : "hidden"
+          }`}
+          onChange={handleAddUser}
         />
         <input
           type="text"
@@ -41,6 +50,7 @@ const SignIn = () => {
           }`}
           name="email"
           onChange={handleAddUser}
+          required
         />
         <input
           type="text"
@@ -48,6 +58,7 @@ const SignIn = () => {
           className="py-2 px-4 outline-none lg:w-[25rem] md:w-[20rem] w-[15rem]"
           name="username"
           onChange={handleAddUser}
+          required
         />
         <input
           type="password"
@@ -55,6 +66,7 @@ const SignIn = () => {
           placeholder={`${signUp ? "choose password" : "Your password"} `}
           className="py-2 px-4 outline-none lg:w-[25rem] md:w-[20rem] w-[15rem]"
           onChange={handleAddUser}
+          required
         />
         {!signUp && (
           <span
@@ -65,14 +77,14 @@ const SignIn = () => {
             -Invalid username or password-
           </span>
         )}
-        <button
+        <input
+          type="submit"
+          value="Login"
           className={`py-2 px-4 outline-none bg-color-1 lg:w-[25rem] md:w-[20rem] w-[15rem] ${
             signUp ? "hidden" : "flex"
           }`}
-          onClick={() => handleLogin()}
-        >
-          Log In
-        </button>
+          onClick={handleLogin}
+        />
         <span
           className={` ${
             signUp ? "hidden" : "flex"
@@ -80,22 +92,23 @@ const SignIn = () => {
         >
           -or-
         </span>
-        <button
-          className={`py-2 px-4 outline-none  ${
-            signUp
-              ? "bg-color-1"
-              : "border border-color-1 hover:bg-color-1 text-slate-50 hover:text-black"
-          } lg:w-[25rem] md:w-[20rem] w-[15rem]`}
-          onClick={() => {
-            if (signUp) {
-              return handleLogin();
-            } else {
-              return setSignUp(true);
-            }
-          }}
-        >
-          Sign Up
-        </button>
+        <div>
+          {signUp ? (
+            <input
+              type="submit"
+              value="Sign Up"
+              className="py-2 px-4 outline-none bg-color-1 lg:w-[25rem] md:w-[20rem] w-[15rem]"
+              onClick={handleLogin}
+            />
+          ) : (
+            <button
+              className="py-2 px-4 outline-none border border-color-1 hover:bg-color-1 text-slate-50 hover:text-black lg:w-[25rem] md:w-[20rem] w-[15rem]"
+              onClick={() => setSignUp(true)}
+            >
+              Sign Up
+            </button>
+          )}
+        </div>
         <button
           className={`py-2 px-4 outline-none justify-center text-color-2 hover:text-black border border-color-1 hover:bg-color-1 ${
             signUp ? "flex" : "hidden"

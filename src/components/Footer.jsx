@@ -4,16 +4,17 @@ import {
   goUp,
   ourMoviesGenre,
 } from "./Constants";
-import { Link } from "react-router-dom";
-import { ADoubleRightSvg, deadPool } from "../assets";
+import { Link, useNavigate } from "react-router-dom";
+import { ADoubleRightSvg, copyRightSvg, deadPool } from "../assets";
 
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <div
       style={{ backgroundImage: `url(${deadPool})` }}
       className="bg-contain lg:bg-left-top bg-center"
     >
-      <div className="flex items-start flex-wrap justify-evenly py-6 lg:footer-bg  bg-[#ffffffb5] lg:pl-24 p-8">
+      <div className="flex items-start flex-wrap justify-evenly py-6 lg:footer-bg  bg-slate-300 lg:pl-24 p-8">
         <div className="lg:w-1/3 w-full lg:mb-0 mb-4">
           <h4 className="h4 font-semibold font-press">IMMovies</h4>
           <p>
@@ -76,6 +77,23 @@ const Footer = () => {
           <p>Phone: 0794881466</p>
           <p>Email: miraclecode11@gmail.com</p>
         </div>
+      </div>
+      <div className="relative p-6 grid md:grid-cols-2 bg-white">
+        <p className="body-2 text-n-3 font-semibold h-10 flex items-center justify-center gap-2 p-2">
+          <img
+            className="relative lg:h-full my-2 h-[80%] "
+            src={copyRightSvg}
+          />
+          {new Date().getFullYear()}. All rights reserved.
+        </p>
+        <p className="relative flex items-center text-n-1/50 justify-center">
+          Designed by&nbsp;
+          <a href={`${designerSocials[1].linkUrl}`}>
+            <u className="cursor-pointer text-n-1 font-semibold">
+              IBANZE Miracle
+            </u>
+          </a>
+        </p>
       </div>
     </div>
   );

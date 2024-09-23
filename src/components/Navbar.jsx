@@ -11,15 +11,16 @@ import {
 } from "./../assets";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import MenuSvg from "./design/MenuSvg";
-import { useContext } from "react";
-import { AppContext } from "../App";
 import { goUp, navMenu } from "./Constants";
 
-const Navbar = () => {
+const Navbar = ({
+  openNavigation,
+  setOpenNavigation,
+  location,
+  isLogged,
+  dummyUserObject,
+}) => {
   const navigate = useNavigate();
-
-  const { openNavigation, setOpenNavigation, location, isLogged } =
-    useContext(AppContext);
 
   const toggleNavigation = () => {
     if (openNavigation) {
@@ -36,67 +37,69 @@ const Navbar = () => {
           openNavigation ? "animate-fade-in" : "hidden"
         } lg:hidden absolute -z-[100] right-0 left-0 top-[4rem] overflow-hidden backdrop-blur-md`}
       >
-        <div
-          className={`${
-            openNavigation ? "animate-menu" : "hidden"
-          } relative  w-full bg-slate-200 flex flex-col items-start justify-evenly  pt-24 px-8  `}
-        >
-          {navMenu.map((item) => (
+        <div className="lg:hidden">
+          <div
+            className={`${
+              openNavigation ? "animate-menu" : "hidden"
+            } relative  w-full bg-slate-200 flex flex-col items-start justify-evenly  pt-24 px-8  `}
+          >
+            {navMenu.map((item) => (
+              <div
+                key={item.id}
+                className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 ${
+                  item.id != 0 ? "border-t border-color-1" : ""
+                }`}
+                onClick={() => {
+                  navigate(item.navigateLink);
+                  toggleNavigation();
+                }}
+              >
+                {item.name}
+              </div>
+            ))}
             <div
-              key={item.id}
-              className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 ${
-                item.id != 0 ? "border-t border-color-1" : ""
-              }`}
+              className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 border-t border-color-1`}
               onClick={() => {
-                navigate(item.navigateLink);
+                navigate("./search");
                 toggleNavigation();
               }}
             >
-              {item.name}
+              Search
             </div>
-          ))}
-          <div
-            className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 border-t border-color-1`}
-            onClick={() => {
-              navigate("./search");
-              toggleNavigation();
-            }}
-          >
-            Search
-          </div>
-          <div
-            className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 border-t border-color-1
+            <div
+              className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 border-t border-color-1
           `}
-            onClick={() => {
-              navigate("/watch_list");
-              toggleNavigation();
-            }}
-          >
-            Watch List
+              onClick={() => {
+                navigate("/watch_list");
+                toggleNavigation();
+              }}
+            >
+              Watch List
+            </div>
+            <div
+              className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 border-t border-color-1 ${
+                isLogged ? "hidden" : "flex"
+              }`}
+              onClick={() => {
+                navigate("/sign_in");
+                toggleNavigation();
+              }}
+            >
+              Sign In
+            </div>
+            <img
+              src={gripSvg}
+              className="h-6 mx-auto mt-20 mb-2"
+              onClick={toggleNavigation}
+            />
           </div>
-          <div
-            className={`cursor-pointer hover:bg-color-1 pl-12 w-full h-12 flex items-center hover:scale-[1.05] duration-500 border-t border-color-1 ${
-              isLogged ? "hidden" : "flex"
-            }`}
-            onClick={() => {
-              navigate("/sign_in");
-              toggleNavigation();
-            }}
-          >
-            Sign In
-          </div>
-          <img
-            src={gripSvg}
-            className="h-6 mx-auto mt-20 mb-2"
-            onClick={toggleNavigation}
-          />
         </div>
       </div>
     </>
   );
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-[999] h-[4rem] bg-white shadow py-2 px-8 flex justify-between items-center">
+      <nav className="fixed top-0 w-full z-[999] h-[3.4rem] bg-white shadow py-2 px-8 flex justify-between items-center">
         <img
           src={logo}
           width={830}
@@ -137,15 +140,20 @@ const Navbar = () => {
           <div
             className={`${
               isLogged ? "flex" : "hidden"
-            } items-center gap-2 rounded-full p-[0.25rem] h-[2.7rem] aspect-[3/2] bg-slate-300`}
+            } h-[2.7rem] aspect-square`}
             onClick={() => navigate("/profile")}
           >
-            <img
-              src={user}
-              alt="profile"
-              className="h-full rounded-full bg-slate-700 p-[0.2rem]"
-            />
-            <img src={ADoubleRightSvg} className="h-4" />
+            <div
+              className="h-full w-full border bg-slate-400 border-slate-300 rounded-full bg-contain bg-center bg-no-repeat"
+              style={{ backgroundImage: `url(${user})` }}
+            >
+              {dummyUserObject.imgUrl && (
+                <img
+                  src={dummyUserObject.imgUrl}
+                  className="h-full w-full rounded-full bg-slate-700 p-[0.2rem]"
+                />
+              )}
+            </div>
           </div>
         </div>
         <div className="ml-auto lg:hidden" onClick={toggleNavigation}>

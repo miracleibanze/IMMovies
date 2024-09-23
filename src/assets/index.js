@@ -14,12 +14,14 @@ import UTurnLeft from "./svgs/arrow-uturn-left.svg";
 import user from "./svgs/user-alt.svg";
 import eye from "./svgs/eye.svg";
 import eyeSlash from "./svgs/eye-slash.svg";
+import copyRightSvg from "./svgs/copyright.svg";
 
 import xMen from "./hero/xMen.jpg";
 import fastX from "./hero/fastX.jpg";
 import freeGuy from "./hero/freeGuy.jpg";
 import joker from "./hero/joker.jpg";
 import marvel from "./hero/marvel.jpg";
+import theMarvels from "./hero/theMarvels.jpg";
 import rampage from "./hero/rampage.jpg";
 import redNotice from "./hero/redNotice.jpg";
 import wednesday from "./hero/wednesday.jpg";
@@ -61,6 +63,26 @@ import titanic from "./allMovies/titanic.jpg";
 import theTick from "./allMovies/theTick.jpg";
 import whoAmI from "./allMovies/whoAmI.jpg";
 
+import dwayneJohnson from "./actors/dwayneJohnson.jpg";
+import eddieMurphy from "./actors/eddieMurphy.jpg";
+import idrisElba from "./actors/idrisElba.jpg";
+import kevinHart from "./actors/kevinHart.jpg";
+import leonardoDiCaprio from "./actors/leonardoDiCaprio.jpg";
+import liamNeeson from "./actors/liamNeeson.jpg";
+import nicolasCage from "./actors/nicolasCage.jpg";
+import robertDowney from "./actors/robertDowney.jpg";
+import tomCruise from "./actors/tomCruise.jpg";
+import willSmith from "./actors/willSmith.jpg";
+
+import playRect from "./svgs/playRect.svg";
+import comment from "./svgs/comment.svg";
+import download from "./svgs/download.svg";
+import threeDots from "./svgs/three-dots-vertical.svg";
+import noVideo from "./svgs/video-camera-slash.svg";
+
+import chevronUpDown from "./svgs/chevron-up-down.svg";
+import shareSquare from "./svgs/share-square.svg";
+
 export {
   logo,
   listSvg,
@@ -83,6 +105,7 @@ export {
   freeGuy,
   joker,
   marvel,
+  theMarvels,
   rampage,
   redNotice,
   wednesday,
@@ -122,4 +145,22 @@ export {
   titanic,
   theTick,
   whoAmI,
+  dwayneJohnson,
+  eddieMurphy,
+  idrisElba,
+  kevinHart,
+  leonardoDiCaprio,
+  liamNeeson,
+  nicolasCage,
+  robertDowney,
+  tomCruise,
+  willSmith,
+  playRect,
+  comment,
+  download,
+  threeDots,
+  noVideo,
+  copyRightSvg,
+  chevronUpDown,
+  shareSquare,
 };

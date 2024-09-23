@@ -7,6 +7,22 @@
   padding: 0;
   box-sizing: border-box;
 }
+.scrollDesign::-webkit-scrollbar {
+  width: 8px;
+}
+@media (max-width: 1024px) {
+  .scrollDesign::-webkit-scrollbar {
+    max-height: 8px;
+  }
+}
+.scrollDesign::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #9ca6b3c4;
+  display: none;
+}
+.scrollDesign:hover::-webkit-scrollbar-thumb {
+  display: flex;
+}
 
 @layer components {
   .footer-bg {
@@ -15,7 +31,7 @@
     background-position: right;
   }
   .animate-menu {
-    animation: grow 0.5s linear forwards;
+    animation: grow 0.3s linear forwards;
   }
   @keyframes grow {
     from {
@@ -26,7 +42,7 @@
     }
   }
   .animate-fade-out {
-    animation: fadeOut 0.5s linear forwards;
+    animation: fadeOut 0.3s linear forwards;
   }
   @keyframes fadeOut {
     from {
@@ -38,7 +54,7 @@
     }
   }
   .animate-fade-in {
-    animation: fadeIn 0.5s linear forwards;
+    animation: fadeIn 0.3s linear forwards;
   }
   @keyframes fadeIn {
     from {
@@ -51,7 +67,7 @@
     }
   }
   .animate-close-menu {
-    animation: leave 0.5s linear forwards;
+    animation: leave 0.3s linear forwards;
   }
   @keyframes leave {
     from {
@@ -90,6 +106,7 @@
   }
   .animate-inward {
     animation: inward 0.2s linear forwards;
+    color: #808080ed;
   }
   @keyframes inward {
     from {
@@ -98,5 +115,17 @@
     to {
       scale: 1;
     }
+  }
+  .bg-above-center {
+    background-position-y: 27%;
+  }
+  @media (min-width: 1280px) {
+    .bg-above-center {
+      background-position-y: 40%;
+    }
+  }
+  .loginForm input::placeholder {
+    font-weight: bold;
+    color: #000000b9;
   }
 }

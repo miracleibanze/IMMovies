@@ -1,51 +1,116 @@
-import { useContext } from "react";
-import { play } from "../../assets";
+import { useContext, useState } from "react";
+import { threeDots } from "../../assets";
+import Overlay from "./Overlay";
 import { AppContext } from "../../App";
 
-const MovieCard = ({ condition, backgroundImage, name, movieType }) => {
-  const { isLogged } = useContext(AppContext);
-  return (
-    <div
-      className={`flex w-[10rem] flex-col  font-medium shadow-black shadow-md ${
-        condition ? "flex" : "hidden"
-      } font-medium shadow-black shadow-md`}
-    >
+const MovieCard = ({
+  condition,
+  backgroundImage,
+  name,
+  movieType,
+  className,
+  dynamic,
+  item,
+}) => {
+  const { handleAddWatchlist, toggleNotAvailable } = useContext(AppContext);
+  const [addedToWatchList, setAddedToWatchList] = useState(false);
+  const card = (
+    <>
       <div
-        className={`h-[15rem] w-full relative border bg-cover bg-center group flex items-center justify-center`}
-        style={{ backgroundImage: `url(${backgroundImage})` }}
+        className={`${
+          condition ? "flex" : "hidden"
+        } min-w-[10rem] max-w-[10rem] flex-col font-medium shadow-black shadow-md ${
+          className && className
+        }`}
       >
-        <div className="absolute w-full h-full backdrop-brightness-50 animate-inward group-hover:flex hidden item-center justify-center place-content-center">
-          <div className="flex items-center w-full h-full justify-center">
-            <div className="relative flex justify-center items-center text-slate-50 flex-col w-full px-2">
-              <div className="w-full h-full">
-                {name}
-                <div className="bgLine pb-1" />
-              </div>
-              <span className="flex items-center text-3xl">
-                <span>+</span>
-                <img
-                  onClick={() => {
-                    if (isLogged) {
-                      alert("dded to Watch list !");
-                    }
-                  }}
-                  src={play}
-                  alt="play"
-                  className="w-8 h-8 border-slate-300 border-4 hover:scale-[1.2] rounded-full shadow-2xl shadow-slate-200"
-                />
-              </span>
-            </div>
-          </div>
+        <div
+          className={`h-[15rem] w-full relative border bg-cover bg-center group flex items-center justify-center`}
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        >
+          <Overlay name={name} add movieType={movieType} />
+        </div>
+        <div className="w-full bg-slate-100 text-slate-700 h-[3.5rem] p-1 flex relative">
+          <p>{name}</p>
+          <span className="absolute bottom-0 p-1 group right-0 text-color-t">
+            <img
+              src={threeDots}
+              alt="shortMenu"
+              className="relative h-8 pb-2 "
+            />
+            <ul
+              className={` group-hover:flex hidden absolute w-max right-0 bottom-full h-auto flex-col justify-start bg-white z-[999]`}
+            >
+              <li
+                className="hover:bg-slate-200 border-b p-4"
+                onClick={() => {
+                  if (addedToWatchList) {
+                    alert("Already in WatchList");
+                  } else {
+                    handleAddWatchlist(item);
+                    setAddedToWatchList(true);
+                  }
+                }}
+              >
+                {!addedToWatchList ? "Add to watchList" : "Movie Added"}
+              </li>
+              <li
+                className="hover:bg-slate-200 p-4"
+                onClick={toggleNotAvailable}
+              >
+                Download
+              </li>
+            </ul>
+          </span>
         </div>
       </div>
-      <div className="w-full bg-slate-100 text-slate-700 h-[3.5rem] p-1 flex relative">
-        <p>{name}</p>
-        <span className="absolute bottom-0 p-1 right-0 text-color-t">
-          {movieType}
-        </span>
-      </div>
-    </div>
+    </>
   );
+
+  const card2 = (
+    <>
+      <div
+        className={`flex w-[10rem] flex-col font-medium shadow-black shadow-md ${
+          className && className
+        }`}
+      >
+        <div
+          className={`flex-1 w-full relative border bg-cover bg-center group flex items-center justify-center`}
+          style={{ backgroundImage: `url(${backgroundImage})` }}
+        >
+          <Overlay name={name} add movieType={movieType} />
+        </div>
+        <div className="w-full bg-slate-100 text-slate-700 h-[3.5rem] p-1 flex relative">
+          <p>{name}</p>
+          <span className="absolute bottom-0 p-1 right-0 group text-color-t">
+            <img
+              src={threeDots}
+              alt="shortMenu"
+              className="relative h-8 pb-2"
+            />
+            <ul
+              className={`group-hover:flex hidden absolute w-max right-0 bottom-full h-auto flex-col justify-start bg-white z-[999]`}
+            >
+              <li
+                className="hover:bg-slate-200 border-b p-4"
+                onClick={() => {
+                  if (addedToWatchList) {
+                    alert("Already in WatchList");
+                  } else {
+                    handleAddWatchlist(item);
+                    setAddedToWatchList(true);
+                  }
+                }}
+              >
+                {!addedToWatchList ? "Add to watchList" : "Movie Added"}
+              </li>
+              <li className="hover:bg-slate-200 p-4">Download</li>
+            </ul>
+          </span>
+        </div>
+      </div>
+    </>
+  );
+  return dynamic ? card2 : card;
 };
 
 export default MovieCard;
