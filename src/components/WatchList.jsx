@@ -3,15 +3,10 @@ import Section from "./design/Section";
 import { AppContext } from "../App";
 import MenuSvg from "./design/MenuSvg";
 import Title from "./design/Title";
-import {
-  comment,
-  download,
-  noVideo,
-  playRect,
-  thumbsDown,
-  thumbsUp,
-} from "../assets";
+import { download, noVideo, playRect, shareSquare } from "../assets";
 import Button from "./design/Button";
+import ThumbsDown from "../assets/svgs/ThumbsDown";
+import ThumbsUp from "../assets/svgs/ThumbsUp";
 
 const WatchList = () => {
   const { movieList, handleRemoveMovie, dummyUserObject, toggleNotAvailable } =
@@ -20,6 +15,7 @@ const WatchList = () => {
   const [currentMovie, setCurrentMovie] = useState(0);
   const [currentMovieImg, setCurrentMovieImg] = useState(noVideo);
   const [currentMovieName, setCurrentMovieName] = useState("");
+  const [currentMovieDescription, setCurrentMovieDescription] = useState("");
   return (
     <Section id="watchlist" noPadding>
       <Title
@@ -53,12 +49,22 @@ const WatchList = () => {
           >
             {currentMovieName}
             <span className="flex items-center gap-2">
-              <img src={thumbsUp} alt="like" className="w-6 -translate-y-1" />
-              <img src={thumbsDown} alt="like" className="w-6 translate-y-1" />
-
-              <img src={comment} alt="like" className="w-5" />
+              {" "}
+              <button className={`w-6 -translate-y-1`}>
+                <ThumbsUp fill="#60a5fa" />
+              </button>
+              <button className={`w-6 translate-y-1`}>
+                <ThumbsDown fill="#60a5fa" />
+              </button>
+              <img
+                src={shareSquare}
+                alt="like"
+                className="w-6"
+                onClick={toggleNotAvailable}
+              />
             </span>
           </h3>
+          <p>{currentMovieDescription}</p>
           <div
             className={`w-full flex items-center p-4 gap-2 justify-end ${
               currentMovie === 0 ? "hidden" : ""
@@ -82,7 +88,7 @@ const WatchList = () => {
                 } ${
                   itemIndex === 0 ? "opacity-0 pointer-events-none h-0" : ""
                 }`}
-                key={item.id}
+                key={itemIndex}
               >
                 <p
                   className="body-2 font-semibold flex-1"
@@ -90,6 +96,7 @@ const WatchList = () => {
                     setCurrentMovie(itemIndex);
                     setCurrentMovieImg(item.imgUrl);
                     setCurrentMovieName(item.name);
+                    setCurrentMovieDescription(item.description);
                     window.scrollTo(0, 0);
                   }}
                 >
