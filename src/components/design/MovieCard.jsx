@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { threeDots } from "../../assets";
 import Overlay from "./Overlay";
 import { AppContext } from "../../App";
@@ -113,4 +113,4 @@ const MovieCard = ({
   return dynamic ? card2 : card;
 };
 
-export default MovieCard;
+export default memo(MovieCard);

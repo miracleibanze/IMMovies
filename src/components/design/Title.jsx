@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 const Title = ({ content, span, text }) => {
   return (
     <div className="w-full h-auto my-4 flex items-center justify-center flex-col">
@@ -10,4 +12,4 @@ const Title = ({ content, span, text }) => {
   );
 };
 
-export default Title;
+export default memo(Title);

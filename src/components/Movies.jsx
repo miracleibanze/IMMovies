@@ -1,18 +1,46 @@
 import Title from "./design/Title";
 import Section from "./design/Section";
-import { allMovies, ourMoviesGenre } from "./Constants";
+import { allMovies, ourMoviesGenre, topTen } from "./Constants";
 import MovieCard from "./design/MovieCard";
-import { useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { chevronUpDown } from "../assets";
 import Button from "./design/Button";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const Movies = () => {
-  const [selectFilter, setSelectFilter] = useState(0);
   const [moviePage, setMoviePage] = useState(0);
   const [currentfilterGenre, setCurrentFilterGenre] = useState(
     ourMoviesGenre[0]
   );
   const [selectCategory, setSelectCategory] = useState(false);
+
+  const { type, page } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    ourMoviesGenre.map((item, index) => {
+      if (item.name === type) {
+        setCurrentFilterGenre(ourMoviesGenre[index]);
+      }
+    });
+
+    if (type === topTen.link) {
+      setCurrentFilterGenre(topTen);
+    }
+
+    if (page === "movies") {
+      setMoviePage(0);
+    } else if (page === "movies-page2") {
+      setMoviePage(1);
+    } else if (page === "movies-page3") {
+      setMoviePage(2);
+    } else if (page === "all") {
+    } else {
+    }
+    console.log(currentfilterGenre.name);
+    console.log(moviePage);
+  }, [location]);
 
   const toggleSelectCategory = () => {
     setSelectCategory(!selectCategory);
@@ -55,14 +83,28 @@ const Movies = () => {
                     } ${item.name === currentfilterGenre.name ? "hidden" : ""}`}
                     onClick={() => {
                       toggleSelectCategory();
-                      setCurrentFilterGenre(item);
-                      window.scrollTo(top);
+                      navigate(
+                        item.id === 0
+                          ? `/movies/${item.name}/movies`
+                          : `/movies/${item.name}/all`
+                      );
                     }}
                     key={itemIndex}
                   >
                     {item.name}
                   </div>
                 ))}
+                <div
+                  className={`w-full px-8 py-2 hover:bg-slate-400 duration-300 bg-white  ${
+                    currentfilterGenre.name === topTen.name ? "hidden" : ""
+                  }`}
+                  onClick={() => {
+                    toggleSelectCategory();
+                    navigate(`/movies/${topTen.link}/movies`);
+                  }}
+                >
+                  {topTen.name}
+                </div>
               </div>
             </div>
           </div>
@@ -138,7 +180,10 @@ const Movies = () => {
                 item={item}
                 backgroundImage={item.imgUrl}
                 key={item.id}
-                condition={item.movieType === currentfilterGenre.name}
+                condition={
+                  item.movieType === currentfilterGenre.name ||
+                  (currentfilterGenre.link && item.topTen === true)
+                }
               />
             ))}
           </div>
@@ -152,8 +197,7 @@ const Movies = () => {
         <Button
           hover={moviePage === 0 ? false : true}
           onClick={() => {
-            setMoviePage(0);
-            window.scrollTo(top);
+            navigate("/movies/All/movies");
           }}
         >
           1
@@ -161,8 +205,7 @@ const Movies = () => {
         <Button
           hover={moviePage === 1 ? false : true}
           onClick={() => {
-            setMoviePage(1);
-            window.scrollTo(top);
+            navigate("/movies/All/movies-page2");
           }}
         >
           2
@@ -170,8 +213,7 @@ const Movies = () => {
         <Button
           hover={moviePage === 2 ? false : true}
           onClick={() => {
-            setMoviePage(2);
-            window.scrollTo(top);
+            navigate("/movies/All/movies-page3");
           }}
         >
           3
@@ -181,4 +223,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default memo(Movies);

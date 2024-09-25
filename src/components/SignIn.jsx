@@ -1,13 +1,23 @@
-import { useContext } from "react";
+import { memo, useContext, useEffect } from "react";
 import { AppContext } from "../App";
 import { UTurnLeft } from "../assets";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SignIn = () => {
   const { handleAddUser, handleLogin, invalid, setInvalid, signUp, setSignUp } =
     useContext(AppContext);
 
   const navigate = useNavigate();
+  const { state } = useParams();
+
+  useEffect(() => {
+    if (state === "create-account") {
+      setSignUp(true);
+    } else if (state === "auth") {
+      setSignUp(false);
+    } else {
+    }
+  });
 
   return (
     <div
@@ -103,7 +113,7 @@ const SignIn = () => {
           ) : (
             <button
               className="py-2 px-4 outline-none border border-color-1 hover:bg-color-1 text-slate-50 hover:text-black lg:w-[25rem] md:w-[20rem] w-[15rem]"
-              onClick={() => setSignUp(true)}
+              onClick={() => navigate("/sign_in/create-account")}
             >
               Sign Up
             </button>
@@ -113,7 +123,7 @@ const SignIn = () => {
           className={`py-2 px-4 outline-none justify-center text-color-2 hover:text-black border border-color-1 hover:bg-color-1 ${
             signUp ? "flex" : "hidden"
           }`}
-          onClick={() => setSignUp(false)}
+          onClick={() => navigate("/sign_in/auth")}
         >
           Already have account
         </button>
@@ -122,4 +132,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default memo(SignIn);

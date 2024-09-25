@@ -93,12 +93,12 @@ export const navMenu = [
   {
     id: 1,
     name: "Movies",
-    navigateLink: "/movies",
+    navigateLink: "/movies/All/movies",
   },
   {
     id: 2,
     name: "Trending",
-    navigateLink: "/trending",
+    navigateLink: "/trending/box-office",
   },
   {
     id: 3,
@@ -165,7 +165,7 @@ export const footerQuickLinks = [
   {
     id: 1,
     name: "Movies",
-    navigateLink: "/movies",
+    navigateLink: "/movies/All/movies",
   },
   {
     id: 2,
@@ -183,6 +183,11 @@ export const footerQuickLinks = [
     navigateLink: "/privacy_policies",
   },
 ];
+
+export const topTen = {
+  link: "topTen",
+  name: "Top Ten",
+};
 
 export const goUp = () => {
   window.scrollTo(0, 0);
@@ -680,6 +685,16 @@ export const blogs = [
     commenterAddress: "USA, NewYork",
     avatar: user,
     bgUrl: theMarvels,
+  },
+  {
+    id: 3,
+    title: "Matrix:",
+    description:
+      " This is trending movies that have best action playback of time in history of movies like thos",
+    commenter: "chamn stinger",
+    commenterAddress: "USA, texas",
+    avatar: user,
+    bgUrl: matrix,
   },
 ];
 

@@ -3,7 +3,7 @@ import Section from "./design/Section";
 import { allMovies } from "./Constants";
 import { download, play, playRect, shareSquare, user } from "../assets";
 import Button from "./design/Button";
-import { useContext, useState } from "react";
+import { memo, useContext, useMemo, useState } from "react";
 import { AppContext } from "../App";
 import ThumbsUp from "../assets/svgs/ThumbsUp";
 import ThumbsDown from "../assets/svgs/ThumbsDown";
@@ -64,7 +64,6 @@ const Watch = () => {
                         item.likes = item.likes - 1;
                         toggleLiked();
                       }
-                      console.log(item.likes);
                     }}
                   >
                     <ThumbsUp fill={!liked ? "#808080ed" : "#60a5fa"} />
@@ -82,7 +81,6 @@ const Watch = () => {
                         item.disLikes = item.disLikes - 1;
                         toggleDisLiked();
                       }
-                      console.log(item.disLikes);
                     }}
                   >
                     <ThumbsDown fill={!disLiked ? "#808080ed" : "#60a5fa"} />
@@ -162,7 +160,6 @@ const Watch = () => {
                         setAddedToWatchList(false);
                         setDisLiked(false);
                         setLiked(false);
-                        window.scrollTo(top);
                       }}
                       key={itemb.id}
                     >
@@ -197,4 +194,4 @@ const Watch = () => {
   );
 };
 
-export default Watch;
+export default memo(Watch);

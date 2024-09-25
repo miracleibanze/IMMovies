@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import Section from "./design/Section";
 import {
   allMovies,
@@ -10,7 +10,6 @@ import {
 import { ADoubleRightSvg, play } from "../assets";
 import Button from "./design/Button";
 import { useNavigate } from "react-router-dom";
-import { AppContext } from "../App";
 import MovieCard from "./design/MovieCard";
 import Heading from "./design/Heading";
 import Title from "./design/Title";
@@ -22,7 +21,7 @@ const Hero = () => {
 
   const [secondNextMovie, setSecondNextMovie] = useState(3);
   const [secondLastMovie, setSecondLastMovie] = useState(2);
-  const [weekFilter, setWeekFilter] = useState(0);
+  const [weekFilter, setWeekFilter] = useState(ourMoviesGenre[0]);
 
   const isFirstMovie = randomMoviePick === 0;
   let isLastMovie = randomMoviePick === randomMovies.length - 1;
@@ -155,9 +154,9 @@ const Hero = () => {
                 } bg-slate-100 rounded-md`}
               >
                 <Button
-                  hover={item.id != weekFilter ? true : false}
+                  hover={item.id != weekFilter.id ? true : false}
                   onClick={() => {
-                    setWeekFilter(item.id);
+                    setWeekFilter(item);
                   }}
                 >
                   {item.name}
@@ -165,11 +164,11 @@ const Hero = () => {
               </div>
             ))}
           </div>
-          <div className="relative flex flex-wrap items-start justify-start gap-3 mt-4">
-            {weekFilter === 0 &&
+          <div className="relative flex flex-no-wrap overflow-hidden items-start py-3 justify-start gap-3 mt-4">
+            {weekFilter.id === 0 &&
               allMovies.map((item) => (
                 <MovieCard
-                  condition={item.id < 16}
+                  condition={item.id < 10}
                   backgroundImage={item.imgUrl}
                   name={item.name}
                   movieType={item.movieType}
@@ -178,12 +177,12 @@ const Hero = () => {
                   item={item}
                 />
               ))}
-            {weekFilter != 0 &&
+            {weekFilter.id != 0 &&
               allMovies.map((item) => (
                 <MovieCard
                   condition={
-                    item.movieType === ourMoviesGenre[weekFilter].name ||
-                    (weekFilter === 9 &&
+                    item.movieType === ourMoviesGenre[weekFilter.id].name ||
+                    (weekFilter.id === 9 &&
                       (item.movieType === "Sci-fi" ||
                         item.movieType === "Comedy" ||
                         item.movieType === "Serie"))
@@ -200,12 +199,16 @@ const Hero = () => {
           <div className="w-full py-4 flex justify-end">
             <Button
               onClick={() => {
-                navigate("/movies");
-                window.scrollTo(top);
+                navigate(
+                  weekFilter.id === 0
+                    ? "/movies/All/movies"
+                    : `/movies/${weekFilter.name}/all`
+                );
               }}
               scale
             >
-              See more
+              See more{" "}
+              {weekFilter.id === 0 ? "movies" : `${weekFilter.name} movies`}
             </Button>
           </div>
         </div>
@@ -229,8 +232,7 @@ const Hero = () => {
           <div className="w-full py-4 flex justify-end">
             <Button
               onClick={() => {
-                navigate("/movies#topTen");
-                window.scrollTo(top);
+                navigate("/movies/topTen/movies");
               }}
               scale
             >
@@ -282,31 +284,23 @@ const Hero = () => {
               </div>
             ))}
           </div>
-          <div className="w-full py-4 flex justify-end">
-            <Button
-              onClick={() => {
-                navigate("/movies");
-                window.scrollTo(top);
-              }}
-              scale
-            >
-              See more
-            </Button>
-          </div>
         </div>
       </Section>
       <Section id="boxOffice" color>
         <Heading title="Box office" color />
-        <div className="flex items-center justify-start gap-3 flex-wrap overflow-x-hidden w-full mt-4">
+        <div className="flex items-center justify-start gap-3 flex-no-wrap overflow-x-hidden w-full mt-4">
           {randomMovies.map((item) => (
             <div
-              className="relative w-[15rem] h-[20rem] flex border bg-cover items-center justify-center bg-center font-medium shadow-black shadow-md group"
+              className="relative min-w-[15rem] h-[20rem] flex border bg-cover items-center justify-center bg-center font-medium shadow-black shadow-md group"
               style={{ backgroundImage: `url(${item.imageUrl})` }}
               key={item.id}
             >
               <Overlay name={item.name} />
             </div>
           ))}
+        </div>
+        <div className="w-full mt-4 flex place-content-end">
+          <Button link="/trending/box-office">See more</Button>
         </div>
       </Section>
       <Section id="blog">
@@ -345,6 +339,16 @@ const Hero = () => {
             </div>
           ))}
         </div>
+        <div className="w-full py-4 flex justify-end">
+          <Button
+            onClick={() => {
+              navigate("/trending/blog");
+            }}
+            scale
+          >
+            Read more
+          </Button>
+        </div>
       </Section>
       <Section id="movieStars" color>
         <Heading title="Our Stars" color />
@@ -379,4 +383,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default memo(Hero);

@@ -1,3 +1,4 @@
+import { memo } from "react";
 import Section from "./design/Section";
 
 const TermsAndServices = () => {
@@ -75,4 +76,4 @@ const TermsAndServices = () => {
   );
 };
 
-export default TermsAndServices;
+export default memo(TermsAndServices);

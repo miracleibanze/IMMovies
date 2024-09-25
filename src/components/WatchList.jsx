@@ -12,7 +12,7 @@ const WatchList = () => {
   const { movieList, handleRemoveMovie, dummyUserObject, toggleNotAvailable } =
     useContext(AppContext);
 
-  const [currentMovie, setCurrentMovie] = useState(0);
+  const [currentMovie, setCurrentMovie] = useState();
   const [currentMovieImg, setCurrentMovieImg] = useState(noVideo);
   const [currentMovieName, setCurrentMovieName] = useState("");
   const [currentMovieDescription, setCurrentMovieDescription] = useState("");
@@ -29,9 +29,11 @@ const WatchList = () => {
         <div className="lg:w-[75%] w-full">
           <div className="w-full aspect-video bg-slate-500">
             <div
-              className={`w-full h-full ${
-                currentMovie === 0 ? "bg-contain bg-no-repeat" : "bg-cover"
-              } bg-center`}
+              className={`w-full h-full  bg-center ${
+                currentMovieImg === noVideo
+                  ? "bg-contain bg-no-repeat"
+                  : "bg-cover"
+              }`}
               style={{ backgroundImage: `url(${currentMovieImg})` }}
             >
               <div
@@ -76,18 +78,17 @@ const WatchList = () => {
             </Button>
           </div>
         </div>
-        <div className="relative flex-1 lg:p-0 px-8">
+        <div
+          className="relative flex-1 lg:p-0 px-8"
+          onClick={() => console.log(movieList.length)}
+        >
           <h4 className="h4 font-semibold">Watchlist :</h4>
           <div className="relative h-full lg:overflow-y-scroll scrollDesign">
             {movieList.map((item, itemIndex) => (
               <div
                 className={`w-full px-4 py-2 rounded-md border-color-1 flex justify-between items-center shadow-md ${
-                  itemIndex === currentMovie && currentMovie !== 0
-                    ? "bg-color-1"
-                    : ""
-                } ${
-                  itemIndex === 0 ? "opacity-0 pointer-events-none h-0" : ""
-                }`}
+                  itemIndex === currentMovie ? "bg-color-1" : ""
+                } `}
                 key={itemIndex}
               >
                 <p
@@ -97,10 +98,9 @@ const WatchList = () => {
                     setCurrentMovieImg(item.imgUrl);
                     setCurrentMovieName(item.name);
                     setCurrentMovieDescription(item.description);
-                    window.scrollTo(0, 0);
                   }}
                 >
-                  {itemIndex}
+                  {itemIndex + 1}
                   {". "}
                   {item.name}
                 </p>
@@ -115,9 +115,8 @@ const WatchList = () => {
           </div>
           <div
             className={`absolute w-full h-full top-0  bg-slate-300 items-center justify-center ${
-              movieList.length !== 1 ? "hidden" : "flex"
+              movieList.length !== 0 ? "hidden" : "flex"
             }`}
-            onClick={() => console.log(movieList.length)}
           >
             &lt;Empty&gt;
           </div>

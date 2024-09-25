@@ -12,6 +12,7 @@ import {
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import MenuSvg from "./design/MenuSvg";
 import { goUp, navMenu } from "./Constants";
+import { memo } from "react";
 
 const Navbar = ({
   openNavigation,
@@ -132,7 +133,7 @@ const Navbar = ({
             Watch list
           </Button>
           {!isLogged && (
-            <Button link="sign_in" onClick={goUp}>
+            <Button link="sign_in/auth" onClick={goUp}>
               Sign in
             </Button>
           )}
@@ -140,7 +141,7 @@ const Navbar = ({
           <div
             className={`${
               isLogged ? "flex" : "hidden"
-            } h-[2.7rem] aspect-square`}
+            } h-[2.7rem] aspect-square `}
             onClick={() => navigate("/profile")}
           >
             <div
@@ -148,9 +149,9 @@ const Navbar = ({
               style={{ backgroundImage: `url(${user})` }}
             >
               {dummyUserObject.imgUrl && (
-                <img
-                  src={dummyUserObject.imgUrl}
-                  className="h-full w-full rounded-full bg-slate-700 p-[0.2rem]"
+                <div
+                  style={{ backgroundImage: `url(${dummyUserObject.imgUrl})` }}
+                  className="h-full w-full rounded-full bg-slate-700 p-[0.2rem] bg-center bg-cover"
                 />
               )}
             </div>
@@ -166,4 +167,4 @@ const Navbar = ({
   );
 };
 
-export default Navbar;
+export default memo(Navbar);

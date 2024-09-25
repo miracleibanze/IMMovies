@@ -7,7 +7,15 @@ import {
   useLocation,
 } from "react-router-dom";
 import Footer from "./components/Footer";
-import { createContext, lazy, Suspense, useEffect, useState } from "react";
+import {
+  createContext,
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
 import { allMovies, moviePlaceHolder } from "./components/Constants";
 
 const Movies = lazy(() => import("./components/Movies"));
@@ -41,32 +49,36 @@ function App() {
   const [noMovieListed, setNoMovieListed] = useState(0);
   const [likes, setLikes] = useState(0);
 
-  const toggleNotAvailable = () => alert("Not available at the moment !");
+  const toggleNotAvailable = useCallback(
+    () => alert("Not available at the moment !"),
+    []
+  );
 
   window.onscroll = () => {
     if (openNavigation) setOpenNavigation(false);
   };
-  function persistData(user) {
+  const persistData = useCallback((user) => {
     localStorage.setItem("user", JSON.stringify({ dummyUserObject: user }));
-  }
+    console.log(dummyUserObject);
+  }, []);
 
-  function saveMovie(newMovieList) {
+  const saveMovie = useCallback((newMovieList) => {
     localStorage.setItem("movies", JSON.stringify({ movieList: newMovieList }));
-  }
+  }, []);
 
-  function handleAddWatchlist(newMovie) {
+  const handleAddWatchlist = (newMovie) => {
     const newMovieList = [...movieList, newMovie];
     setMovieList(newMovieList);
     saveMovie(newMovieList);
-  }
+  };
 
-  function handleRemoveMovie(index) {
+  const handleRemoveMovie = (index) => {
     const newMovieList = movieList.filter((item) => {
       return item.id !== index;
     });
     saveMovie(newMovieList);
     setMovieList(newMovieList);
-  }
+  };
   const [dummyUserObject, setDummyUserObject] = useState({
     names: "",
     username: "",
@@ -77,6 +89,7 @@ function App() {
   const [signUp, setSignUp] = useState(false);
 
   const handleAddUser = (event) => {
+    console.log(formData);
     setFormData((prevFormData) => {
       return {
         ...prevFormData,
@@ -85,8 +98,8 @@ function App() {
     });
   };
 
-  const handleLogin = () => {
-    if (formData.names != "" && signUp) {
+  const handleLogin = useCallback(() => {
+    if (signUp) {
       console.log(formData.names);
       console.log(formData);
       dummyUserObject.names = formData.names;
@@ -98,31 +111,37 @@ function App() {
       setIsLogged(true);
       alert("Account created successfully !");
     } else if (
+      !signUp &&
       formData.email === dummyUserObject.email &&
-      formData.username === dummyUserObject.username &&
       formData.password === dummyUserObject.password
     ) {
       alert("login successful!");
       setIsLogged(true);
     } else {
       setInvalid(true);
+      console.log(formData);
+      console.log(dummyUserObject);
     }
-  };
-  useEffect(() => {
+  }, [formData]);
+
+  useLayoutEffect(() => {
     if (!localStorage) {
       return;
     }
     let localuser = localStorage.getItem("user");
-    let localMovies = localStorage.getItem("movies");
     if (!localuser) {
       setIsLogged(false);
-      handleAddWatchlist(moviePlaceHolder);
     } else {
       localuser = JSON.parse(localuser).dummyUserObject;
-      localMovies = JSON.parse(localMovies).movieList;
-      setDummyUserObject(localuser);
-      setMovieList(localMovies);
+      dummyUserObject.names = localuser.names;
+      dummyUserObject.email = localuser.email;
+      dummyUserObject.password = localuser.password;
+      dummyUserObject.imgUrl = localuser.imgUrl;
+      dummyUserObject.username = localuser.username;
       setIsLogged(true);
+      let localMovies = localStorage.getItem("movies");
+      localMovies = JSON.parse(localMovies).movieList;
+      localMovies.map((item, itemIndex) => (movieList[itemIndex] = item));
     }
     if (dummyUserObject.names === "") {
       setIsLogged(false);
@@ -145,6 +164,10 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    window.scrollTo(top);
+  }, [location]);
 
   return (
     <main
@@ -194,25 +217,33 @@ function App() {
         >
           <Routes>
             <Route exact path="/" element={<Hero />} />
-            <Route path="/movies" element={<Movies />} />
-            <Route path="/trending" element={<Trending />} />
+            <Route path="/movies/:type/:page" element={<Movies />} />
+            <Route path="/trending/:type" element={<Trending />} />
             <Route element={<Watch />} path="/watch/:movie" />
             <Route path="/celebs" element={<Celebs />} />
             <Route
               path="/profile"
               element={
-                isLogged ? <Profile /> : <Navigate replace to={"/sign_in"} />
+                isLogged ? (
+                  <Profile />
+                ) : (
+                  <Navigate replace to={"/sign_in/auth"} />
+                )
               }
             />
             <Route path="/search" element={<Search />} />
             <Route
               path="/watch_list"
               element={
-                isLogged ? <WatchList /> : <Navigate replace to={"/sign_in"} />
+                isLogged ? (
+                  <WatchList />
+                ) : (
+                  <Navigate replace to={"/sign_in/auth"} />
+                )
               }
             />
             <Route
-              path={`${isLogged ? "/sign_in" : "/sign_in"}`}
+              path="/sign_in/:state"
               element={!isLogged ? <SignIn /> : <Navigate replace to={"/"} />}
             />
             <Route
@@ -221,7 +252,7 @@ function App() {
                 isLogged ? (
                   <TermsAndServices />
                 ) : (
-                  <Navigate replace to={"/sign_in"} />
+                  <Navigate replace to={"/sign_in/auth"} />
                 )
               }
             />
@@ -231,7 +262,7 @@ function App() {
                 isLogged ? (
                   <PrivacyPolicies />
                 ) : (
-                  <Navigate replace to={"/sign_in"} />
+                  <Navigate replace to={"/sign_in/auth"} />
                 )
               }
             />

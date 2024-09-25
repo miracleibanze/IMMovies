@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 import { eye, eyeSlash, user } from "../assets";
 import Section from "./design/Section";
 import { AppContext } from "../App";
@@ -19,11 +19,14 @@ const Profile = () => {
       <h3 className="h3 mb-4">Your Profile</h3>
       <div className="flex items-center md:flex-row flex-col h-[25rem] md:gap-8 gap-4">
         <div
-          className="relative h-full w-full flex items-center bg-red-400 justify-center bg-cover bg-center "
+          className="relative  flex items-center md:h-[25rem]  bg-slate-500 h-full aspect-square ${
+ h-[20rem] bg-red-400 justify-center bg-cover bg-center "
           style={{ backgroundImage: `url(${user})` }}
         >
           <div
-            className="md:h-[25rem] h-[20rem] bg-slate-500 relative bg-cover bg-center aspect-square"
+            className={` bg-slate-500 h-full relative bg-cover bg-center aspect-square ${
+              !dummyUserObject.imgUrl && "hidden"
+            }`}
             style={{
               backgroundImage: `url(${dummyUserObject.imgUrl})`,
             }}
@@ -92,4 +95,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default memo(Profile);

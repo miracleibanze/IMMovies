@@ -6,6 +6,7 @@ import {
 } from "./Constants";
 import { Link, useNavigate } from "react-router-dom";
 import { ADoubleRightSvg, copyRightSvg, deadPool } from "../assets";
+import { memo } from "react";
 
 const Footer = () => {
   const navigate = useNavigate();
@@ -99,4 +100,4 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export default memo(Footer);

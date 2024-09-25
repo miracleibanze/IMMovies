@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { AppContext } from "../../App";
 import { play } from "../../assets";
 import { useNavigate } from "react-router-dom";
@@ -32,4 +32,4 @@ const Overlay = ({ name, movieType }) => {
   );
 };
 
-export default Overlay;
+export default memo(Overlay);
