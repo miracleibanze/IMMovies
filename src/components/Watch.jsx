@@ -45,7 +45,12 @@ const Watch = () => {
                   className="relative bg-slate-950/50 w-full h-full flex items-center justify-center"
                   onClick={toggleNotAvailable}
                 >
-                  <img src={playRect} alt="play" className="h-12" />
+                  <img
+                    loading="lazy"
+                    src={playRect}
+                    alt="play"
+                    className="h-12"
+                  />
                 </div>
               </div>
               <h3 className="h3 px-4 font-bold flex items-center justify-between w-full">
@@ -87,6 +92,7 @@ const Watch = () => {
                   </button>
 
                   <img
+                    loading="lazy"
                     src={shareSquare}
                     alt="like"
                     className="w-6"
@@ -96,12 +102,6 @@ const Watch = () => {
               </h3>
               <p className="body-2">{item.description}</p>
               <div className="w-full flex items-center p-4 gap-2 justify-end">
-                <a onClick={toggleNotAvailable}>
-                  <Button scale>
-                    <img src={download} alt="like" className="h-4" />
-                    Download
-                  </Button>
-                </a>
                 <Button
                   scale
                   onClick={() => {
@@ -122,6 +122,7 @@ const Watch = () => {
               </div>
               <div className="relative w-full flex items-center gap-2 mb-8">
                 <img
+                  loading="lazy"
                   src={user}
                   alt="person"
                   className="w-12 aspect-square rounded-full border object-cover object-center mx-4"
@@ -130,7 +131,7 @@ const Watch = () => {
                   type="text"
                   name="comment"
                   id="comment"
-                  className="flex-1 h-11 rounded-md px-2 outline-none"
+                  className="flex-1 h-11 rounded-md px-2 outline-none text-slate-100"
                   placeholder="Write your comment..."
                 />
                 <Button scale>Comment</Button>
@@ -169,6 +170,7 @@ const Watch = () => {
                       >
                         <div className="w-full flex justify-center aspect-video items-center">
                           <img
+                            loading="lazy"
                             src={play}
                             className="w-8 group-hover:flex hidden"
                           />

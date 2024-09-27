@@ -310,6 +310,7 @@ export const allMovies = [
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.",
     likes: 75,
     disLikes: 2,
+    suggested: true,
   },
   {
     id: 7,
@@ -351,6 +352,7 @@ export const allMovies = [
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.",
     likes: 75,
     disLikes: 2,
+    suggested: true,
   },
   {
     id: 11,
@@ -361,6 +363,7 @@ export const allMovies = [
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.",
     likes: 75,
     disLikes: 2,
+    suggested: true,
   },
   {
     id: 12,
@@ -392,6 +395,7 @@ export const allMovies = [
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.",
     likes: 75,
     disLikes: 2,
+    suggested: true,
   },
   {
     id: 15,
@@ -413,6 +417,7 @@ export const allMovies = [
     likes: 75,
     disLikes: 2,
     topTen: true,
+    suggested: true,
   },
   {
     id: 17,
@@ -424,6 +429,7 @@ export const allMovies = [
     likes: 75,
     disLikes: 2,
     topTen: true,
+    suggested: true,
   },
   {
     id: 18,
@@ -455,6 +461,7 @@ export const allMovies = [
     likes: 75,
     disLikes: 2,
     topTen: true,
+    suggested: true,
   },
   {
     id: 21,
@@ -507,6 +514,7 @@ export const allMovies = [
     likes: 75,
     disLikes: 2,
     topTen: true,
+    suggested: true,
   },
   {
     id: 26,
@@ -578,6 +586,7 @@ export const allMovies = [
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ullam sint blanditiis labore. Ipsa hic ad quod veritatis quia ullam soluta.",
     likes: 75,
     disLikes: 2,
+    suggested: true,
   },
   {
     id: 33,

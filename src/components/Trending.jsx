@@ -3,24 +3,31 @@ import { blogs, randomMovies } from "./Constants";
 import Overlay from "./design/Overlay";
 import Section from "./design/Section";
 import Heading from "./design/Heading";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const Trending = () => {
   const { type } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
 
   return (
     <>
-      <div className="w-full flex place-content-center bg-slate-200">
+      <div className="w-full flex place-content-center bg-slate-200 dark:bg-slate-800">
         <div className="relative grid grid-cols-2 gap-2 max-w-sm items.center min-w-[700px]">
           <div
-            className={`body-2 font-normal h-full w-full  p-4 text-color-t duration-200 hover:bg-slate-300 flex place-content-center`}
+            className={`body-2 font-normal h-full w-full  p-4 text-color-t duration-200 hover:bg-slate-300 flex place-content-center dark:hover:bg-slate-500 ${
+              location.pathname === "/trending/box-office" &&
+              "border-b border-color-1"
+            }`}
             onClick={() => navigate("/trending/box-office")}
           >
             Box office
           </div>
           <div
-            className={`body-2 font-normal text-color-t h-full p-4 w-full duration-200 hover:bg-slate-300 flex place-content-center`}
+            className={`body-2 font-normal text-color-t h-full p-4 w-full duration-200 hover:bg-slate-300 dark:hover:bg-slate-500 flex place-content-center ${
+              location.pathname === "/trending/blog" &&
+              "border-b border-color-1"
+            }`}
             onClick={() => navigate("/trending/blog")}
           >
             Blog
@@ -65,6 +72,7 @@ const Trending = () => {
               </div>
               <div className="flex gap-2 items-center">
                 <img
+                  loading="lazy"
                   src={item.avatar}
                   alt="commenter"
                   className="w-12 aspect-square rounded-full border object-cover object-center"

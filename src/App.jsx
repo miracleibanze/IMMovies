@@ -16,7 +16,7 @@ import {
   useLayoutEffect,
   useState,
 } from "react";
-import { allMovies, moviePlaceHolder } from "./components/Constants";
+import { allMovies } from "./components/Constants";
 
 const Movies = lazy(() => import("./components/Movies"));
 const Watch = lazy(() => import("./components/Watch"));
@@ -46,7 +46,6 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
   const [invalid, setInvalid] = useState(false);
   const [movieList, setMovieList] = useState([]);
-  const [noMovieListed, setNoMovieListed] = useState(0);
   const [likes, setLikes] = useState(0);
 
   const toggleNotAvailable = useCallback(
@@ -171,18 +170,17 @@ function App() {
 
   return (
     <main
-      className={`mt-[3.4rem] min-h-screen overflow-hidden w-full flex flex-col justify-between border`}
+      className={`mt-[3.4rem] px-0 min-h-screen overflow-hidden w-full flex flex-col justify-between`}
     >
       <Navbar
         openNavigation={openNavigation}
         setOpenNavigation={setOpenNavigation}
-        location={location}
         isLogged={isLogged}
         dummyUserObject={dummyUserObject}
       />
       <Suspense
         fallback={
-          <div className="flex-1 flex items-center justify-center">
+          <div className="flex-1 flex items-center justify-center bg-slate-300 dark:bg-slate-900 dark:text-slate-100">
             Loading ...
           </div>
         }
@@ -205,7 +203,6 @@ function App() {
             movieList,
             setMovieList,
             handleRemoveMovie,
-            noMovieListed,
             setFormData,
             formData,
             setDummyUserObject,
@@ -231,7 +228,7 @@ function App() {
                 )
               }
             />
-            <Route path="/search" element={<Search />} />
+            <Route path="/search/:type/movies" element={<Search />} />
             <Route
               path="/watch_list"
               element={

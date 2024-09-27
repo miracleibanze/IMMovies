@@ -1,5 +1,4 @@
-import { memo, useContext } from "react";
-import { AppContext } from "../../App";
+import { memo } from "react";
 import { play } from "../../assets";
 import { useNavigate } from "react-router-dom";
 
@@ -10,13 +9,14 @@ const Overlay = ({ name, movieType }) => {
     <div className="absolute w-full h-full backdrop-brightness-50 animate-inward group-hover:flex hidden item-center justify-center place-content-center">
       <div className="flex items-center w-full h-full justify-center">
         <div className="relative flex justify-center items-center text-slate-50 flex-col w-full px-2">
-          <div className="w-full h-full">
+          <div className="w-full h-full text-slate-100">
             {name}
             <div className="bgLine pb-1" />
             {movieType && movieType}
           </div>
           <span className="flex items-center text-3xl mt-2">
             <img
+              loading="lazy"
               onClick={() => {
                 navigate(`/watch/${name}`);
                 window.scrollTo(top);

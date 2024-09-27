@@ -20,7 +20,9 @@ const Celebs = () => {
                 alt="avatar"
                 className="min-w-[10rem] max-w-[10rem] h-[15rem] rounded-3xl border object-cover object-center"
               />
-              <p className="body-2 font-bold">{item.name}</p>
+              <p className="body-2 font-bold dark:text-slate-200">
+                {item.name}
+              </p>
             </div>
           ))}
         </div>

@@ -13,7 +13,9 @@ import searchSvg from "./svgs/search.svg";
 import UTurnLeft from "./svgs/arrow-uturn-left.svg";
 import user from "./svgs/user-alt.svg";
 import eye from "./svgs/eye.svg";
+import eyeDark from "./svgs/eye-dark.svg";
 import eyeSlash from "./svgs/eye-slash.svg";
+import eyeSlashDark from "./svgs/eye-slash-dark.svg";
 import copyRightSvg from "./svgs/copyright.svg";
 
 import xMen from "./hero/xMen.jpg";
@@ -98,8 +100,10 @@ export {
   searchSvg,
   UTurnLeft,
   user,
-  eye,
   eyeSlash,
+  eye,
+  eyeDark,
+  eyeSlashDark,
   xMen,
   fastX,
   freeGuy,

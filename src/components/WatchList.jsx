@@ -40,14 +40,17 @@ const WatchList = () => {
                 className="relative bg-slate-950/50 w-full h-full flex items-center justify-center"
                 onClick={toggleNotAvailable}
               >
-                <img src={playRect} alt="play" className="h-12" />
+                <img
+                  loading="lazy"
+                  src={playRect}
+                  alt="play"
+                  className="h-12"
+                />
               </div>
             </div>
           </div>
           <h3
-            className={`h3 px-4 font-bold flex items-center justify-between w-full pointer-events-none ${
-              currentMovie === 0 ? "hidden" : ""
-            }`}
+            className={`h3 px-4 font-bold flex items-center justify-between w-full pointer-events-none `}
           >
             {currentMovieName}
             <span className="flex items-center gap-2">
@@ -59,6 +62,7 @@ const WatchList = () => {
                 <ThumbsDown fill="#60a5fa" />
               </button>
               <img
+                loading="lazy"
                 src={shareSquare}
                 alt="like"
                 className="w-6"
@@ -67,16 +71,6 @@ const WatchList = () => {
             </span>
           </h3>
           <p>{currentMovieDescription}</p>
-          <div
-            className={`w-full flex items-center p-4 gap-2 justify-end ${
-              currentMovie === 0 ? "hidden" : ""
-            }`}
-          >
-            <Button scale onClick={toggleNotAvailable}>
-              <img src={download} alt="like" className="h-4" />
-              Download
-            </Button>
-          </div>
         </div>
         <div
           className="relative flex-1 lg:p-0 px-8"

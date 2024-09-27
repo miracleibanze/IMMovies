@@ -6,7 +6,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  color: black;
 }
+
 .scrollDesign::-webkit-scrollbar {
   width: 8px;
 }
@@ -27,6 +29,11 @@
 @layer components {
   .footer-bg {
     background: radial-gradient(#ffffff09 4%, #fff 10%);
+    background-size: 200% 1000%;
+    background-position: right;
+  }
+  .footer-bg-black {
+    background: radial-gradient(#ffffff09 4%, #0f172a 10%);
     background-size: 200% 1000%;
     background-position: right;
   }

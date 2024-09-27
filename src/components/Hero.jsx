@@ -1,4 +1,4 @@
-import { memo, useContext, useState } from "react";
+import { memo, useState } from "react";
 import Section from "./design/Section";
 import {
   allMovies,
@@ -59,10 +59,10 @@ const Hero = () => {
 
   return (
     <>
-      <Section id="hero" className="pt-0" noPadding>
+      <Section id="hero" noPadding className="w-screen">
         <div className="relative w-full flex justify-center">
-          <div className="absolute left-0 right-0 lg:max-w-min z-10 h-full flex w-full flex-col justify-start ">
-            <h1 className="lg:text-[5rem] px-4 md:text-[4rem] text-[3rem] font-extrabold lg:w-max text-white uppercase textShadow">
+          <div className="absolute left-0 right-0 z-10 h-full flex w-full flex-col justify-start ">
+            <h1 className="lg:text-[5rem] px-4 leading-none md:text-[4rem] text-[3rem] font-extrabold text-white uppercase textShadow">
               {randomMovies[randomMoviePick].name}
             </h1>
           </div>
@@ -72,7 +72,7 @@ const Hero = () => {
               backgroundImage: `url(${randomMovies[randomMoviePick].imageUrl})`,
             }}
           >
-            <div className="relative w-full flex justify-center bg-white/60 pb-12">
+            <div className="relative w-full flex justify-center bg-white/60 dark:bg-slate-900/80 pb-12">
               <p className="bg-slate-800 text-slate-50 lg:shadow-xl lg:shadow-black absolute bottom-full w-full px-4 py-2">
                 {randomMovies[randomMoviePick].description}
               </p>
@@ -87,16 +87,19 @@ const Hero = () => {
                   }
                 >
                   <img
+                    loading="lazy"
                     src={ADoubleRightSvg}
                     className="h-6 absolute top-1/2 -right-2 -translate-y-1/2 translate-x-full animate-pulse"
                   />
                   <img
+                    loading="lazy"
                     src={ADoubleRightSvg}
                     className="h-6 absolute top-1/2 -left-2 -translate-y-1/2  -translate-x-full animate-pulse rotate-180"
                   />
                   <img
+                    loading="lazy"
                     src={play}
-                    className="h-12 m-auto group-hover:flex hidden animate-pulse"
+                    className="h-12 m-auto group-hover:flex hidden rounded-full bg-black border-color-1 border-8"
                     onClick={() =>
                       navigate(`/watch/${randomMovies[randomMoviePick].name}`)
                     }
@@ -151,7 +154,7 @@ const Hero = () => {
                   item.id != 6 && item.id != 7 && item.id != 8
                     ? "flex"
                     : "hidden"
-                } bg-slate-100 rounded-md`}
+                } rounded-md`}
               >
                 <Button
                   hover={item.id != weekFilter.id ? true : false}
@@ -169,9 +172,6 @@ const Hero = () => {
               allMovies.map((item) => (
                 <MovieCard
                   condition={item.id < 10}
-                  backgroundImage={item.imgUrl}
-                  name={item.name}
-                  movieType={item.movieType}
                   key={item.id}
                   add
                   item={item}
@@ -181,16 +181,15 @@ const Hero = () => {
               allMovies.map((item) => (
                 <MovieCard
                   condition={
-                    item.movieType === ourMoviesGenre[weekFilter.id].name ||
+                    item.movieType.includes(
+                      ourMoviesGenre[weekFilter.id].name
+                    ) ||
                     (weekFilter.id === 9 &&
                       (item.movieType === "Sci-fi" ||
                         item.movieType === "Comedy" ||
                         item.movieType === "Serie"))
                   }
                   key={item.id}
-                  backgroundImage={item.imgUrl}
-                  name={item.name}
-                  movieType={item.movieType}
                   add
                   item={item}
                 />
@@ -220,9 +219,6 @@ const Hero = () => {
             {allMovies.map((item) => (
               <MovieCard
                 condition={item.topTen}
-                name={item.name}
-                movieType={item.movieType}
-                backgroundImage={item.imgUrl}
                 key={item.id}
                 add
                 item={item}
@@ -248,41 +244,31 @@ const Hero = () => {
           text="TV shows and movies just for you"
         />
         <div className="container px-0 overflow-visible">
-          <div className="grid grid-flow-col gap-3 template overflow-visible ">
-            {allMovies.map((item) => (
-              <div
-                className={`w-max mb-4 ${item.id > 24 ? "block" : "hidden"}`}
-                key={item.name}
-              >
+          <div className="flex justify-center gap-3 flex-nowrap overflow-visible py-2 ">
+            {Array(8)
+              .fill("")
+              .map((item, index) => (
                 <MovieCard
-                  backgroundImage={item.imgUrl}
-                  name={item.name}
-                  movieType={item.movieType}
-                  className="w-[15rem] h-[25rem]"
+                  className="min-w-[15rem] h-[25rem] translate-x-1/3"
                   dynamic
-                  item={item}
+                  item={allMovies[index + 24]}
+                  condition={true}
+                  key={index}
                 />
-              </div>
-            ))}
+              ))}
           </div>
-          <div className="grid grid-flow-col gap-3 template overflow-visible">
-            {allMovies.map((item) => (
-              <div
-                className={`w-max mb-4 ${
-                  item.id > 11 && item.id < 23 ? "block" : "hidden"
-                }`}
-                key={item.name}
-              >
+          <div className="flex justify-center flex-nowrap gap-3 overflow-visible py-2">
+            {Array(8)
+              .fill("")
+              .map((item, index) => (
                 <MovieCard
-                  backgroundImage={item.imgUrl}
-                  name={item.name}
-                  movieType={item.movieType}
-                  className={"w-[15rem] h-[25rem] -translate-x-1/2"}
+                  className="min-w-[15rem] h-[25rem] -translate-x-1/3"
                   dynamic
-                  item={item}
+                  item={allMovies[index + 11]}
+                  condition={true}
+                  key={index}
                 />
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </Section>
@@ -316,21 +302,24 @@ const Hero = () => {
                 style={{ backgroundImage: `url(${item.bgUrl})` }}
               />
               <div className="relative flex-1 pt-2">
-                <h6 className="h6 font-bold">{item.title}</h6>
+                <h6 className="h6 font-bold dark:text-slate-100">
+                  {item.title}
+                </h6>
                 <p className="body-2 text-color-t font-semibold">
                   {item.description}
                 </p>
               </div>
               <div className="flex gap-2 items-center">
                 <img
+                  loading="lazy"
                   src={item.avatar}
                   alt="commenter"
                   className="w-12 aspect-square rounded-full border object-cover object-center"
                 />
                 <div className="relative flex-1 body-1">
-                  <div className="font-semibold flex flex-col leading-5">
+                  <div className="font-semibold flex flex-col dark:text-slate-100 leading-5">
                     {item.commenter}
-                    <span className="text-[70%] font-extralight">
+                    <span className="text-[70%] dark:text-slate-100 font-extralight">
                       {item.commenterAddress}
                     </span>
                   </div>
@@ -359,11 +348,14 @@ const Hero = () => {
               key={item.id}
             >
               <img
+                loading="lazy"
                 src={item.avatar}
                 alt="avatar"
                 className="min-w-[10rem] max-w-[10rem] h-[15rem] rounded-3xl border object-cover object-center"
               />
-              <p className="body-2 font-bold">{item.name}</p>
+              <p className="body-2 font-bold dark:text-slate-100">
+                {item.name}
+              </p>
             </div>
           ))}
         </div>
@@ -371,7 +363,6 @@ const Hero = () => {
           <Button
             onClick={() => {
               navigate("/celebs");
-              window.scrollTo(top);
             }}
             scale
           >

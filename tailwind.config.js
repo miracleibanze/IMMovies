@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { fontFamily } from "tailwindcss/defaultTheme";
 import plugin from "tailwindcss/plugin";
 
 export default {
@@ -13,6 +12,7 @@ export default {
           3: "#e5e7eb",
           4: "#00f902",
           t: "#3b82f6",
+          d: "#008cff",
         },
       },
     },
