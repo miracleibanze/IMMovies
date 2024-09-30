@@ -21,11 +21,12 @@ const Search = () => {
   const [showResults, setShowResults] = useState(false);
   const [isPending, startTransition] = useTransition();
 
-  const handleSearch = ({ target: { value } }) => {
-    setSearchText(value);
+  const handleSearch = (event) => {
+    setSearchText(event.target.value);
   };
+
   const handleSearchText = (text) => {
-    const Text = text.toLowerCase();
+    const Text = text.toLocaleLowerCase();
     startTransition(() => {
       setFilteredMovies(
         allMovies.filter((item) => {
