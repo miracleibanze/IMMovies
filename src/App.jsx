@@ -170,7 +170,7 @@ function App() {
 
   return (
     <main
-      className={`mt-[3.4rem] px-0 min-h-screen overflow-hidden w-full flex flex-col justify-between`}
+      className={`mt-[3.4rem] px-0 min-h-screen overflow-hidden w-full  flex flex-col justify-between`}
     >
       <Navbar
         openNavigation={openNavigation}

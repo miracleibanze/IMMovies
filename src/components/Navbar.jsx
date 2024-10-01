@@ -90,7 +90,7 @@ const Navbar = ({
     </>
   );
   return (
-    <header className="fixed z-[999] top-0 w-full dark:bg-slate-900 shadow flex place-content-center">
+    <header className="fixed z-[999] top-0 w-full bg-slate-100 dark:bg-slate-900 shadow flex place-content-center">
       <nav className=" w-full h-[3.4rem] max-w-screen-2xl  py-2 px-8 flex justify-between items-center">
         <img
           loading="lazy"
