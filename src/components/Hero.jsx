@@ -181,9 +181,7 @@ const Hero = () => {
               allMovies.map((item) => (
                 <MovieCard
                   condition={
-                    item.movieType.includes(
-                      ourMoviesGenre[weekFilter.id].name
-                    ) ||
+                    item.movieType === ourMoviesGenre[weekFilter.id].name ||
                     (weekFilter.id === 9 &&
                       (item.movieType === "Sci-fi" ||
                         item.movieType === "Comedy" ||

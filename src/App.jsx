@@ -47,6 +47,14 @@ function App() {
   const [invalid, setInvalid] = useState(false);
   const [movieList, setMovieList] = useState([]);
   const [likes, setLikes] = useState(0);
+  const [dummyUserObject, setDummyUserObject] = useState({
+    names: "",
+    username: "",
+    password: "",
+    email: "",
+    imgUrl: "",
+  });
+  const [signUp, setSignUp] = useState(false);
 
   const toggleNotAvailable = useCallback(
     () => alert("Not available at the moment !"),
@@ -61,9 +69,9 @@ function App() {
     console.log(dummyUserObject);
   }, []);
 
-  const saveMovie = useCallback((newMovieList) => {
+  const saveMovie = (newMovieList) => {
     localStorage.setItem("movies", JSON.stringify({ movieList: newMovieList }));
-  }, []);
+  };
 
   const handleAddWatchlist = (newMovie) => {
     const newMovieList = [...movieList, newMovie];
@@ -78,14 +86,6 @@ function App() {
     saveMovie(newMovieList);
     setMovieList(newMovieList);
   };
-  const [dummyUserObject, setDummyUserObject] = useState({
-    names: "",
-    username: "",
-    password: "",
-    email: "",
-    imgUrl: "",
-  });
-  const [signUp, setSignUp] = useState(false);
 
   const handleAddUser = (event) => {
     console.log(formData);
@@ -97,7 +97,7 @@ function App() {
     });
   };
 
-  const handleLogin = useCallback(() => {
+  const handleLogin = () => {
     if (signUp) {
       console.log(formData.names);
       console.log(formData);
@@ -121,7 +121,7 @@ function App() {
       console.log(formData);
       console.log(dummyUserObject);
     }
-  }, [formData]);
+  };
 
   useLayoutEffect(() => {
     if (!localStorage) {
@@ -170,7 +170,7 @@ function App() {
 
   return (
     <main
-      className={`mt-[3.4rem] px-0 min-h-screen overflow-hidden w-full  flex flex-col justify-between`}
+      className={`mt-[3.4rem] px-0 min-h-screen overflow-hidden max-w-full min-w-full relative flex flex-col justify-between`}
     >
       <Navbar
         openNavigation={openNavigation}

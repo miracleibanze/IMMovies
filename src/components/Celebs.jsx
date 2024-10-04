@@ -23,6 +23,7 @@ const Celebs = () => {
               <p className="body-2 font-bold dark:text-slate-200">
                 {item.name}
               </p>
+              <p className="body-2 font-bold text-blue-400 underline">about</p>
             </div>
           ))}
         </div>

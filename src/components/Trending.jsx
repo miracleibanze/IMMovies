@@ -12,8 +12,8 @@ const Trending = () => {
 
   return (
     <>
-      <div className="w-full flex place-content-center bg-slate-200 dark:bg-slate-800">
-        <div className="relative grid grid-cols-2 gap-2 max-w-sm items.center min-w-[700px]">
+      <div className="max-w-full flex place-content-center bg-slate-200 dark:bg-slate-800">
+        <div className="relative grid grid-cols-2 gap-2 max-w-md items-center w-full">
           <div
             className={`body-2 font-normal h-full w-full  p-4 text-color-t duration-200 hover:bg-slate-300 flex place-content-center dark:hover:bg-slate-500 ${
               location.pathname === "/trending/box-office" &&
@@ -39,7 +39,7 @@ const Trending = () => {
         className={`${type === "box-office" ? "flex" : "hidden"}`}
       >
         <Heading title="Box office" />
-        <div className="flex items-center justify-start gap-3 flex-wrap overflow-x-hidden w-full mt-4">
+        <div className="flex items-center justify-center gap-3 flex-wrap overflow-x-hidden w-full mt-4">
           {randomMovies.map((item) => (
             <div
               className="relative w-[15rem] h-[20rem] flex border bg-cover items-center justify-center bg-center font-medium shadow-black shadow-md group"
@@ -54,7 +54,7 @@ const Trending = () => {
 
       <Section id="blog" className={`${type === "blog" ? "flex" : "hidden"}`}>
         <Heading title="Our Blog" />
-        <div className="container relative flex flex-wrap items-center justify-start gap-4 px-2 py-4">
+        <div className="container relative flex flex-wrap items-center justify-center gap-4 px-2 py-4">
           {blogs.map((item) => (
             <div
               className="relative flex flex-col items-start justify-between w-[18rem] h-[24rem] p-2 border shadow-lg shadow-black"
