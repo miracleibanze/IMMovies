@@ -9,9 +9,6 @@
   color: black;
 }
 
-.scrollDesign::-webkit-scrollbar {
-  width: 8px;
-}
 @media (max-width: 1024px) {
   .scrollDesign::-webkit-scrollbar {
     max-height: 8px;
